@@ -26,11 +26,11 @@ Ensure you have the following installed:
 The application will start on http://localhost:8080.
 
 ## API Endpoints
-GET /recruitment/recruits: Get all recruits.
-GET /recruitment/recruits/{id}: Get a recruit by ID.
-POST /recruitment/recruits: Create a new recruit.
-PUT /recruitment/recruits/{id}: Update an existing recruit.
-DELETE /recruitment/recruits/{id}: Delete a recruit by ID.
+- GET /recruitment/recruits: Get all recruits.
+- GET /recruitment/recruits/{id}: Get a recruit by ID.
+- POST /recruitment/recruits: Create a new recruit.
+- PUT /recruitment/recruits/{id}: Update an existing recruit.
+- DELETE /recruitment/recruits/{id}: Delete a recruit by ID.
 
 ## Contributing
 Contributions are welcome! Please follow the Contributing Guidelines.
