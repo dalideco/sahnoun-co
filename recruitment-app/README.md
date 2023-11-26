@@ -31,6 +31,7 @@ The application will start on http://localhost:8080.
 - POST /recruitment/recruits: Create a new recruit.
 - PUT /recruitment/recruits/{id}: Update an existing recruit.
 - DELETE /recruitment/recruits/{id}: Delete a recruit by ID.
+- POST /recruitment/preselectResume: Return a list of preselected applicants
 
 ## Contributing
 Contributions are welcome! Please follow the Contributing Guidelines.
