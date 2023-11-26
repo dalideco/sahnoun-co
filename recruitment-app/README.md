@@ -21,7 +21,7 @@ Ensure you have the following installed:
 
    ```bash
    mvn clean install
-   java -jar target/recruitment-management-system.jar
+   java -jar target/recruitment-app.jar
 
 The application will start on http://localhost:8080.
 
