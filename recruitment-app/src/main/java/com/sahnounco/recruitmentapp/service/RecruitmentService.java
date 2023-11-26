@@ -14,9 +14,9 @@ public class RecruitmentService {
     public RecruitmentService() {
         this.recruits = new ArrayList<>();
         // Add dummy data
-        recruits.add(new Recruit(1L, "John Doe", "Software Engineer"));
-        recruits.add(new Recruit(2L, "Jane Smith", "Data Scientist"));
-        recruits.add(new Recruit(3L, "Bob Johnson", "UX Designer"));
+        recruits.add(new Recruit(1L, "John Sahnoun", "Senior Software Engineer"));
+        recruits.add(new Recruit(2L, "Jane Smith", "Senior Data Scientist"));
+        recruits.add(new Recruit(3L, "Bob Sahnoun", "UX Designer"));
     }
 
     public List<Recruit> getAllRecruits() {
@@ -50,6 +50,19 @@ public class RecruitmentService {
 
     public boolean deleteRecruit(Long id) {
         return recruits.removeIf(recruit -> recruit.getId().equals(id));
+    }
+
+    public List<Recruit> preselectResume(List<Recruit> recruits1) {
+        List<Recruit> preselectedRecruits = new ArrayList<>();
+
+        for (Recruit recruit : recruits) {
+            // Check if the lastname is Sahnoun and position contains the word "Senior"
+            if ("Sahnoun".equalsIgnoreCase(recruit.getName()) && recruit.getPosition().toLowerCase().contains("senior")) {
+                preselectedRecruits.add(recruit);
+            }
+        }
+
+        return preselectedRecruits;
     }
 
     private Long generateId() {

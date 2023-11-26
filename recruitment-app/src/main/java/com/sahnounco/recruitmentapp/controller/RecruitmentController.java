@@ -63,5 +63,15 @@ public class RecruitmentController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/recruits/preselectResume")
+    public ResponseEntity<List<Recruit>> preselectResume(@RequestBody List<Recruit> recruits) {
+        List<Recruit> preselectedRecruits = recruitmentService.preselectResume(recruits);
+        if (!preselectedRecruits.isEmpty()) {
+            return ResponseEntity.ok(preselectedRecruits);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
 
