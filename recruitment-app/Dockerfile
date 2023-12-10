@@ -1,20 +1,25 @@
-# Use the official OpenJDK base image
-FROM openjdk:11-jre-slim
+# Use the official Maven image
+FROM maven:3.8-openjdk-11 AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy the Maven project file
-COPY ./pom.xml .
+COPY ./recruitment-app/pom.xml .
 
 # Copy the entire Spring Boot project
-COPY ./src ./src
+COPY ./recruitment-app/src ./src
 
 # Build the application
-RUN ["./mvnw", "package", "-DskipTests"]
+RUN mvn package -DskipTests
+
+# Final image
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=builder /app/target/recruitment-app.jar .
 
 # Expose the port the app runs on
 EXPOSE 8080
 
 # Run the application
-CMD ["java", "-jar", "target/recruitment-app.jar"]
+CMD ["java", "-jar", "recruitment-app.jar"]
