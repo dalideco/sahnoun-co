@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  springboot:
+    build:
+      context: .
+      dockerfile: ./recruitment-app/Dockerfile
+    ports:
+      - "8080:8080"
+
+  flask:
+    build:
+      context: .
+      dockerfile: ./erp-system/Dockerfile
+    ports:
+      - "5000:5000"
+
+  nestjs:
+    build:
+      context: .
+      dockerfile: ./accounting_application/Dockerfile
+    ports:
+      - "3000:3000"
+
+  express:
+    build:
+      context: .
+      dockerfile: ./hr-app/Dockerfile
+    ports:
+      - "3001:3001"
