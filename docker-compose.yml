@@ -27,4 +27,4 @@ services:
       context: .
       dockerfile: ./hr-app/Dockerfile
     ports:
-      - "3001:3001"
+      - "3001:3000"

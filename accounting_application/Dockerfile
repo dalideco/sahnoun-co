@@ -1,17 +1,30 @@
-# Use the official Node.js image
-FROM node:14-alpine
+FROM node:alpine AS development
 
-# Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
-# Copy the NestJS application files
-COPY ./accounting_application /app
 
-# Install dependencies
-RUN npm install
+COPY accounting_application/package.json ./
 
-# Expose the port the app runs on
-EXPOSE 3001
+COPY accounting_application/package-lock.json ./
 
-# Run the application
-CMD ["npm", "start"]
+RUN npm i
+
+COPY ./accounting_application . 
+
+RUN npm run build
+
+FROM node:alpine as production
+
+WORKDIR /usr/src/app
+
+COPY accounting_application/package.json ./
+
+COPY accounting_application/package-lock.json ./
+
+RUN npm i --only=production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
+CMD ["npm", "run", "start:prod"]

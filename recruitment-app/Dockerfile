@@ -1,5 +1,5 @@
-# Use the official Maven image
-FROM maven:3.8-openjdk-11 AS builder
+# Use a base image with Maven and Java 11 installed
+FROM maven:3.6-openjdk-17-slim AS build
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -13,13 +13,14 @@ COPY ./recruitment-app/src ./src
 # Build the application
 RUN mvn package -DskipTests
 
-# Final image
-FROM openjdk:11-jre-slim
+# Use a base image with Java 11 installed
+FROM openjdk:17-slim
+
+# Set the working directory inside the container
 WORKDIR /app
-COPY --from=builder /app/target/recruitment-app.jar .
 
-# Expose the port the app runs on
-EXPOSE 8080
+# Copy the built JAR file from the previous stage
+COPY --from=build /app/target/*.jar .
 
-# Run the application
-CMD ["java", "-jar", "recruitment-app.jar"]
+# Set the entry point command to run the application
+CMD ["java", "-jar", "recruitment-app-0.0.1-SNAPSHOT.jar"]

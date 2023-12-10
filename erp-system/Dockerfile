@@ -1,17 +1,23 @@
-# Use the official Python image
-FROM python:3.8-slim
+# Use a base image with Python
+FROM python:3.9-slim
 
-# Set the working directory inside the container
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the Flask application files
-COPY ./erp-system /app
+# Copy the requirements file to the container
+COPY erp-system/requirements.txt .
 
-# Install dependencies
+# Install the Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port the app runs on
+# Install gunicorn
+RUN pip install gunicorn
+
+# Copy the Flask app code to the container
+COPY ./erp-system .
+
+# Expose the port that the Flask app will run on
 EXPOSE 5000
 
-# Run the application
-CMD ["python", "app.py"]
+# Set the command to run the Flask app using a WSGI server (e.g., gunicorn)
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:5000"]
