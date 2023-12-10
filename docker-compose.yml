@@ -4,7 +4,7 @@ services:
   springboot:
     build:
       context: .
-      dockerfile: ./recrutement-app/Dockerfile
+      dockerfile: ./recruitment-app/Dockerfile
     ports:
       - "8080:8080"
 
