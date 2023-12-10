@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  springboot:
+    build:
+      context: ./recruitment-app
+    ports:
+      - "8080:8080"
+
+  nestjs:
+    build:
+      context: ./accounting_application
+    ports:
+      - "3001:3001"
+
+  flask:
+    build:
+      context: ./erp-system
+    ports:
+      - "5000:5000"
+
+  express:
+    build:
+      context: ./hr-app
+    ports:
+      - "3000:3000"
