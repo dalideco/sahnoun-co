@@ -1,0 +1,101 @@
+#%RAML 1.0
+title: Employee Management
+version: v1
+baseUri: http://example.com/api/{version}
+mediaType: application/json
+
+types:
+  Employee:
+    type: object
+    properties:
+      id: string
+      name: string
+      position: string
+      leaveDays: integer
+    example:
+      id: "e12345"
+      name: "John Doe"
+      position: "Software Engineer"
+      leaveDays: 10
+
+  LeaveRequest:
+    type: object
+    properties:
+      employeeId: string
+      startDate: date-only
+      endDate: date-only
+      leaveType: string
+    example:
+      employeeId: "e12345"
+      startDate: "2023-07-01"
+      endDate: "2023-07-10"
+      leaveType: "Vacation"
+
+  LeaveStatus:
+    type: object
+    properties:
+      requestId: string
+      status: string
+    example:
+      requestId: "lr12345"
+      status: "Approved"
+
+/employees:
+  get:
+    description: Get a list of all employees
+    responses:
+      200:
+        body:
+          type: Employee[]
+  post:
+    description: Add a new employee
+    body:
+      type: Employee
+    responses:
+      201:
+        body:
+          type: Employee
+
+/employees/{employeeId}:
+  uriParameters:
+    employeeId: string
+  get:
+    description: Get details of a specific employee
+    responses:
+      200:
+        body:
+          type: Employee
+      404:
+        description: Employee not found
+  put:
+    description: Update an existing employee's details
+    body:
+      type: Employee
+    responses:
+      200:
+        body:
+          type: Employee
+      404:
+        description: Employee not found
+
+/leaveRequests:
+  post:
+    description: Submit a leave request
+    body:
+      type: LeaveRequest
+    responses:
+      202:
+        body:
+          type: LeaveStatus
+
+/leaveRequests/{requestId}:
+  uriParameters:
+    requestId: string
+  get:
+    description: Check the status of a leave request
+    responses:
+      200:
+        body:
+          type: LeaveStatus
+      404:
+        description: Leave request not found
